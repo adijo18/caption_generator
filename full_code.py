@@ -230,7 +230,7 @@ verbose = 2
 n_epochs = 50
 n_photos_per_update = 2
 n_batches_per_epoch = int(len(train) / n_photos_per_update)
-n_repeats = 3
+n_repeats = 1
 
 # run experiment
 train_results, test_results = list(), list()
@@ -239,6 +239,7 @@ for i in range(n_repeats):
 	model = define_model(vocab_size, max_length)
 	# fit model
 	model.fit_generator(data_generator(train_descriptions, train_features, tokenizer, max_length, n_photos_per_update), steps_per_epoch=n_batches_per_epoch, epochs=n_epochs, verbose=verbose)
+	model.save("model"+i+".h5")
 	# evaluate model on training data
 	train_score = evaluate_model(model, train_descriptions, train_features, tokenizer, max_length)
 	test_score = evaluate_model(model, test_descriptions, test_features, tokenizer, max_length)
