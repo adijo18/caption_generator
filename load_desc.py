@@ -56,7 +56,7 @@ def load_photo_features(filename, dataset):
 	return features
 
 # load dev set
-filename = 'Flickr8k_text/Flickr_8k.devImages.txt'
+filename = 'Flickr_8k.devImages.txt'
 dataset = load_set(filename)
 print('Dataset: %d' % len(dataset))
 # train-test split
