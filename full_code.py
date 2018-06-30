@@ -227,7 +227,7 @@ print('Description Length: %d' % max_length)
 # define experiment
 model_name = 'baseline1'
 verbose = 2
-n_epochs = 50
+n_epochs = 2
 n_photos_per_update = 2
 n_batches_per_epoch = int(len(train) / n_photos_per_update)
 n_repeats = 1
@@ -241,13 +241,11 @@ for i in range(n_repeats):
 	model.fit_generator(data_generator(train_descriptions, train_features, tokenizer, max_length, n_photos_per_update), steps_per_epoch=n_batches_per_epoch, epochs=n_epochs, verbose=verbose)
 	model.save("model"+str(i)+".h5")
 	# evaluate model on training data
-	train_score = evaluate_model(model, train_descriptions, train_features, tokenizer, max_length)
-	test_score = evaluate_model(model, test_descriptions, test_features, tokenizer, max_length)
+	train_score, actual_train, predicted_train = evaluate_model(model, train_descriptions, train_features, tokenizer, max_length)
+	test_score, actual_test, predicted_test = evaluate_model(model, test_descriptions, test_features, tokenizer, max_length)
 	
-	for j in range(10):
-		print(test_score[j][1]," : ",test_score[j][2])
-	train_score  = train_score[0]
-	test_score = test_score[0]
+	for j in range(len(actual_test)):
+		print(actual_test[j]," : ",predicted_test[j])
 	# store
 	train_results.append(train_score)
 	test_results.append(test_score)
