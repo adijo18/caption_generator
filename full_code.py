@@ -227,7 +227,7 @@ print('Description Length: %d' % max_length)
 # define experiment
 model_name = 'baseline1'
 verbose = 2
-n_epochs = 2
+n_epochs = 50
 n_photos_per_update = 2
 n_batches_per_epoch = int(len(train) / n_photos_per_update)
 n_repeats = 1
