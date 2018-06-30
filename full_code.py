@@ -200,7 +200,7 @@ def evaluate_model(model, descriptions, photos, tokenizer, max_length):
 		predicted.append(yhat.split())
 	# calculate BLEU score
 	bleu = corpus_bleu(actual, predicted)
-	return bleu
+	return bleu,actual,predicted
 
 # load dev set
 filename = 'Flickr_8k.devImages.txt'
@@ -243,6 +243,11 @@ for i in range(n_repeats):
 	# evaluate model on training data
 	train_score = evaluate_model(model, train_descriptions, train_features, tokenizer, max_length)
 	test_score = evaluate_model(model, test_descriptions, test_features, tokenizer, max_length)
+	
+	for j in range(10):
+		print(test_score[j][1]," : ",test_score[j][2])
+	train_score  = train_score[0]
+	test_score = test_score[0]
 	# store
 	train_results.append(train_score)
 	test_results.append(test_score)
